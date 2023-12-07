@@ -14,11 +14,11 @@ class Examples extends HTMLElement {
         /*html*/`
         
         <style>
-            .examples{
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-        justify-content: center;
+        .examples{
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
         }
 
         .example{
@@ -28,7 +28,7 @@ class Examples extends HTMLElement {
             flex-direction: column;
             gap: 0.2rem;
             justify-content: center;
-            padding: 0.5rem 0.75rem;
+            padding: 0.6rem 0.75rem;
             position: relative;
             width: 45%;
         }

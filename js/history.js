@@ -10,7 +10,7 @@ class History extends HTMLElement {
 
     render() {
 
-        this.shadow.innerHTML = 
+        this.shadow.innerHTML =
         /*html*/`
         
         <style>
@@ -18,7 +18,7 @@ class History extends HTMLElement {
                 max-height: 80vh;
                 overflow-x: hidden; 
                 overflow-y: auto;
-                padding: 1rem 0;
+                padding: 0.5rem 0.5rem;
                 width: 100%;
             }
 
@@ -51,7 +51,7 @@ class History extends HTMLElement {
             .history-record-title h3{
                 color: hsl(0, 0%, 40%);
                 font-family: 'SoehneBuch', sans-serif; 
-                font-size: 0.65rem;
+                font-size: 0.70rem;
                 text-transform: capitalize;
             }
 
@@ -109,7 +109,6 @@ class History extends HTMLElement {
                 width: 5rem; 
                 z-index: 1000;
             }
-        
         </style>
 
         <section class="history">
@@ -117,67 +116,67 @@ class History extends HTMLElement {
                 <div class="history-record-title">
                     <h3>Hoy</h3>
                 </div>
-                <nav class="history-record-messages">
-                    <ul>
-                    <li>
-                        <a href="">Eliminar nombres de clase</a>
-                    </li>
-                    </ul>
-                </nav>
+                    <nav class="history-record-messages">
+                        <ul>
+                            <li>
+                                <a href="">Eliminar nombres de clase</a>
+                            </li>
+                        </ul>
+                    </nav>
                 </article>
                 <article class="history-record">
-                <div class="history-record-title">
-                    <h3>Ayer</h3>
-                </div>
-                <nav class="history-record-messages">
-                    <ul>
-                    <li><a href="">Tabla de usuarios Mysql</a></li>
-                    <li><a href="">Eliminar o cambiar nombre</a></li>
-                    </ul>
-                </nav>
+                    <div class="history-record-title">
+                        <h3>Ayer</h3>
+                    </div>
+                    <nav class="history-record-messages">
+                        <ul>
+                            <li><a href="">Tabla de usuarios Mysql</a></li>
+                            <li><a href="">Eliminar o cambiar nombre</a></li>
+                        </ul>
+                    </nav>
                 </article>
                 <article class="history-record">
-                <div class="history-record-title">
-                    <h3>Últimos 7 días</h3>
-                </div>
+                    <div class="history-record-title">
+                        <h3>Últimos 7 días</h3>
+                    </div>
                 <nav class="history-record-messages">
                     <ul>
-                    <li><a href="">Novedades PHP 8.1</a></li>
-                    <li><a href="">Novedades CSS 2022 destacadas</a></li>
-                    <li><a href="">Generador CRUD con Express & Sequelize</a></li>
-                    <li><a href="">Cómo iniciar un proyecto de React</a></li>
-                    <li><a href="">Novedades PHP 8.1</a></li>
-                    <li><a href="">Novedades CSS 2022 destacadas</a></li>
-                    <li><a href="">Generador CRUD con Express & Sequelize</a></li>
-                    <li><a href="">Cómo iniciar un proyecto de React</a></li>
-                    <li><a href="">Novedades PHP 8.1</a></li>
-                    <li><a href="">Novedades CSS 2022 destacadas</a></li>
-                    <li><a href="">Generador CRUD con Express & Sequelize</a></li>
-                    <li><a href="">Cómo iniciar un proyecto de React</a></li>
-                    <li><a href="">Novedades PHP 8.1</a></li>
-                    <li><a href="">Novedades CSS 2022 destacadas</a></li>
-                    <li><a href="">Generador CRUD con Express & Sequelize</a></li>
-                    <li><a href="">Cómo iniciar un proyecto de React</a></li>
-                    <li><a href="">Novedades PHP 8.1</a></li>
-                    <li><a href="">Novedades CSS 2022 destacadas</a></li>
-                    <li><a href="">Generador CRUD con Express & Sequelize</a></li>
-                    <li><a href="">Cómo iniciar un proyecto de React</a></li>
-                    <li><a href="">Novedades PHP 8.1</a></li>
-                    <li><a href="">Novedades CSS 2022 destacadas</a></li>
-                    <li><a href="">Generador CRUD con Express & Sequelize</a></li>
-                    <li><a href="">Cómo iniciar un proyecto de React</a></li>
-                    <li><a href="">Novedades PHP 8.1</a></li>
-                    <li><a href="">Novedades CSS 2022 destacadas</a></li>
-                    <li><a href="">Generador CRUD con Express & Sequelize</a></li>
-                    <li><a href="">Cómo iniciar un proyecto de React</a></li>
+                        <li><a href="">Novedades PHP 8.1</a></li>
+                        <li><a href="">Novedades CSS 2022 destacadas</a></li>
+                        <li><a href="">Generador CRUD con Express & Sequelize</a></li>
+                        <li><a href="">Cómo iniciar un proyecto de React</a></li>
+                        <li><a href="">Novedades PHP 8.1</a></li>
+                        <li><a href="">Novedades CSS 2022 destacadas</a></li>
+                        <li><a href="">Generador CRUD con Express & Sequelize</a></li>
+                        <li><a href="">Cómo iniciar un proyecto de React</a></li>
+                        <li><a href="">Novedades PHP 8.1</a></li>
+                        <li><a href="">Novedades CSS 2022 destacadas</a></li>
+                        <li><a href="">Generador CRUD con Express & Sequelize</a></li>
+                        <li><a href="">Cómo iniciar un proyecto de React</a></li>
+                        <li><a href="">Novedades PHP 8.1</a></li>
+                        <li><a href="">Novedades CSS 2022 destacadas</a></li>
+                        <li><a href="">Generador CRUD con Express & Sequelize</a></li>
+                        <li><a href="">Cómo iniciar un proyecto de React</a></li>
+                        <li><a href="">Novedades PHP 8.1</a></li>
+                        <li><a href="">Novedades CSS 2022 destacadas</a></li>
+                        <li><a href="">Generador CRUD con Express & Sequelize</a></li>
+                        <li><a href="">Cómo iniciar un proyecto de React</a></li>
+                        <li><a href="">Novedades PHP 8.1</a></li>
+                        <li><a href="">Novedades CSS 2022 destacadas</a></li>
+                        <li><a href="">Generador CRUD con Express & Sequelize</a></li>
+                        <li><a href="">Cómo iniciar un proyecto de React</a></li>
+                        <li><a href="">Novedades PHP 8.1</a></li>
+                        <li><a href="">Novedades CSS 2022 destacadas</a></li>
+                        <li><a href="">Generador CRUD con Express & Sequelize</a></li>
+                        <li><a href="">Cómo iniciar un proyecto de React</a></li>
                     </ul>
                 </nav>
             </article>
         </section>
 
       `
-    } 
-              
+    }
+
 }
 customElements.define('history-component', History);
 

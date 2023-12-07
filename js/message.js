@@ -11,12 +11,12 @@ class FileUpload extends HTMLElement {
 
     render() {
 
-        this.shadow.innerHTML = 
+        this.shadow.innerHTML =
         /*html*/`
         
         <style>
-        .message-input{
-            width: 100%;
+        .message-input {
+            margin: 0 auto; 
         }
 
         .message-input .attach-button button{
@@ -55,6 +55,7 @@ class FileUpload extends HTMLElement {
             max-height: 5rem;
             resize: none;
             width: 100%;
+            padding-top:0.5rem;
         }
 
         .message-input form .form-element textarea::placeholder{
@@ -150,21 +151,21 @@ class FileUpload extends HTMLElement {
             </form>
         </section>
       `
-    } 
+    }
     Habilitate() {
         const textarea = this.shadow.querySelector('.form-element textarea');
         const sendButton = this.shadow.querySelector('.send-button button');
         const buttonParent = sendButton.parentElement;
 
         sendButton.disabled = true;
-      
+
         textarea.addEventListener('input', () => {
             const validate = textarea.value !== '';
-      
+
             buttonParent.classList.toggle('active', validate);
             sendButton.disabled = !validate;
         });
-    }          
+    }
 }
 customElements.define('input-component', FileUpload);
 
