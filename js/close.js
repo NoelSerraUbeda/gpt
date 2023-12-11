@@ -6,43 +6,46 @@ class Close extends HTMLElement {
 
     connectedCallback() {
         this.render();
-
-        let isAsideOpen = true;
+    
         const closeButton = this.shadowRoot.querySelector('.close-button');
         const overlay = this.shadowRoot.querySelector('.overlay');
-
-        closeButton.addEventListener('click', () => {
-            isAsideOpen = !isAsideOpen;
+        let isAsideOpen = true;
+    
+        const updateAside = () => {
             const aside = this.closest('body').querySelector('aside');
             aside.style.width = isAsideOpen ? '260px' : '0';
             closeButton.classList.toggle('closed', !isAsideOpen);
-
-            if (!overlay.classList.contains('smooth-transition')) {
-                overlay.classList.add('smooth-transition');
-            }
-        });
-
-        closeButton.addEventListener('mouseover', () => {
-            // Verificar si el aside está abierto antes de mostrar el overlay
+            
+            overlay.classList.toggle('smooth-transition', !overlay.classList.contains('smooth-transition'));
+        };
+    
+        const updateOverlay = () => {
             if (isAsideOpen) {
                 const aside = this.closest('body').querySelector('aside');
-                const asideRect = aside.getBoundingClientRect();
-
+                const { height, top, left } = aside.getBoundingClientRect();
+    
                 overlay.style.cssText = `
                     opacity: 0.5;
                     width: 260px;
-                    height: ${asideRect.height}px;
-                    top: ${asideRect.top}px;
-                    left: ${asideRect.left}px;
+                    height: ${height}px;
+                    top: ${top}px;
+                    left: ${left}px;
                 `;
             }
+        };
+    
+        closeButton.addEventListener('click', () => {
+            isAsideOpen = !isAsideOpen;
+            updateAside();
         });
-
+    
+        closeButton.addEventListener('mouseover', updateOverlay);
+    
         closeButton.addEventListener('mouseout', () => {
             overlay.style.cssText = 'opacity: 0;';
         });
     }
-
+    
     render() {
         this.shadow.innerHTML = 
         /*html*/`
