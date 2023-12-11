@@ -28,9 +28,9 @@ class Examples extends HTMLElement {
             flex-direction: column;
             gap: 0.2rem;
             justify-content: center;
-            padding: 0.6rem 0.75rem;
+            padding: 1rem 0.85rem;
             position: relative;
-            width: 45%;
+            width: 38%;
         }
 
         .example:hover{
