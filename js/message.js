@@ -17,7 +17,7 @@ class FileUpload extends HTMLElement {
         <style>
         .message-input {
             margin: 15px auto; 
-            width:60rem;
+            width:55rem;
         }
 
         .message-input .attach-button button{

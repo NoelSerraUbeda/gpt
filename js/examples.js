@@ -30,7 +30,7 @@ class Examples extends HTMLElement {
             justify-content: center;
             padding: 1rem 0.85rem;
             position: relative;
-            width: 38%;
+            width: 33%;
         }
 
         .example:hover{
