@@ -17,6 +17,7 @@ class Conversation extends HTMLElement {
 
         .conversation{
             align-items: center;
+            margin-bottom:10px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -47,23 +48,25 @@ class Conversation extends HTMLElement {
             background-color: hsl(0, 0%, 100%);
             border-radius: 50%;
             display: flex; 
-            height: 4rem;
+            height: 4.3rem;
             justify-content: center;
             position: relative;
-            width: 4rem;
+            width: 4.3rem;
         }
 
         .welcome-logo svg{
             color: hsl(0, 0%, 0%);
-            height: 2.5rem;
-            width: 2.5rem;
+            height: 3rem;
+            width: 3rem;
         }
 
         .welcome-title h1{
             color: hsl(0, 0%, 100%);
             font-family: "SoehneBuch", sans-serif;
-            font-size: 1.3rem;
+            font-size: 1.5rem;
             margin: 0;
+            margin-top:10px;
+            margin-left:-20px;
             width:100%;
             display:flex;
         }   

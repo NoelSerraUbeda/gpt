@@ -6,46 +6,37 @@ class Close extends HTMLElement {
 
     connectedCallback() {
         this.render();
-    
+
         const closeButton = this.shadowRoot.querySelector('.close-button');
         const overlay = this.shadowRoot.querySelector('.overlay');
         let isAsideOpen = true;
-    
+
         const updateAside = () => {
             const aside = this.closest('body').querySelector('aside');
             aside.style.width = isAsideOpen ? '260px' : '0';
             closeButton.classList.toggle('closed', !isAsideOpen);
-            
-            overlay.classList.toggle('smooth-transition', !overlay.classList.contains('smooth-transition'));
+            overlay.classList.toggle('visible', isAsideOpen);
         };
-    
-        const updateOverlay = () => {
+
+        const handleMouseOver = () => {
             if (isAsideOpen) {
-                const aside = this.closest('body').querySelector('aside');
-                const { height, top, left } = aside.getBoundingClientRect();
-    
-                overlay.style.cssText = `
-                    opacity: 0.5;
-                    width: 260px;
-                    height: ${height}px;
-                    top: ${top}px;
-                    left: ${left}px;
-                `;
+                overlay.classList.add('hovered');
             }
         };
-    
+
+        const handleMouseOut = () => {
+            overlay.classList.remove('hovered');
+        };
+
         closeButton.addEventListener('click', () => {
             isAsideOpen = !isAsideOpen;
             updateAside();
         });
-    
-        closeButton.addEventListener('mouseover', updateOverlay);
-    
-        closeButton.addEventListener('mouseout', () => {
-            overlay.style.cssText = 'opacity: 0;';
-        });
+
+        closeButton.addEventListener('mouseover', handleMouseOver);
+        closeButton.addEventListener('mouseout', handleMouseOut);
     }
-    
+
     render() {
         this.shadow.innerHTML = 
         /*html*/`
@@ -55,10 +46,10 @@ class Close extends HTMLElement {
                 position: absolute;
                 left: 1rem;
                 z-index: 1;
-                top:390px;
-                padding:5px;
-                padding-top:25px;
-                height:40px;
+                top: 390px;
+                padding: 5px;
+                padding-top: 25px;
+                height: 40px;
             }
 
             .button-content {
@@ -73,7 +64,7 @@ class Close extends HTMLElement {
 
             .line {
                 height: 3px;
-                width: 100%;
+                width: 1.5rem;
                 background-color: #ffffff;
                 border-radius: 2px;
                 margin: 2px 0;
@@ -111,20 +102,31 @@ class Close extends HTMLElement {
 
             .overlay {
                 position: fixed;
+                opacity: 0.5;
+                width: 260px;
+                transition: background 0.3s ease;
             }
 
-            .close-button:hover + .overlay {
-                background: rgba(0, 0, 0, 1.5); 
+            .overlay.visible {
+                opacity: 1;
+            }
+
+            .overlay.hovered {
+                background: rgba(0, 0, 0, 0.7);
+                width: 260px;
+                height: 100%;
+                top: 0; 
+                left: 0; 
             }
         </style>
 
-            <div class="close-button" title="Close sidebar">
-                <div class="button-content">
-                    <div class="line"></div>
-                    <div class="line"></div>
-                </div>
+        <div class="close-button" title="Close sidebar">
+            <div class="button-content">
+                <div class="line"></div>
+                <div class="line"></div>
             </div>
-            <div class="overlay"></div>
+        </div>
+        <div class="overlay"></div>
         `;
     }
 }
