@@ -6,7 +6,6 @@ class Aside extends HTMLElement {
 
     connectedCallback() {
         this.render();
-
         const closeButton = this.shadowRoot.querySelector('.close-button');
         const overlay = this.shadowRoot.querySelector('.overlay');
         let isAsideOpen = true;
@@ -15,15 +14,10 @@ class Aside extends HTMLElement {
             const aside = this.closest('body').querySelector('aside-component');
             const asideWidth = isAsideOpen ? 260 : 0;
 
-            aside.style.width = `${asideWidth}px`;
-            aside.style.transition = 'width 0.3s ease';
-
-            const closeBtnLeft = isAsideOpen ? 17 : asideWidth + 0.5;
-            closeButton.style.left = `${closeBtnLeft}rem`;
-
+            aside.style.cssText = `width: ${asideWidth}px; transition: width 0.3s ease;`;
+            closeButton.style.left = `${isAsideOpen ? 17 : asideWidth + 0.5}rem`;
             closeButton.classList.toggle('closed', !isAsideOpen);
             overlay.classList.toggle('visible', isAsideOpen);
-            overlay.classList.toggle('fade-out', !isAsideOpen);
         };
 
         closeButton.addEventListener('click', () => {
@@ -37,13 +31,6 @@ class Aside extends HTMLElement {
 
         closeButton.addEventListener('mouseout', () => {
             overlay.classList.remove('visible', 'hovered');
-        });
-
-        // Event listener para manejar la animación de transición
-        overlay.addEventListener('transitionend', () => {
-            if (!isAsideOpen) {
-                overlay.classList.remove('fade-out');
-            }
         });
     }
 
@@ -129,10 +116,6 @@ class Aside extends HTMLElement {
                 height: 100%;
                 top: 0; 
                 left: 0; 
-            }
-
-            .overlay.fade-out {
-                opacity: 0;
             }
 
             .close-button .tooltiptext{
