@@ -2,6 +2,19 @@ class Name extends HTMLElement {
     constructor() {
         super();
         this.shadow = this.attachShadow({ mode: 'open' });
+
+        document.addEventListener('InitiateConversation', this.handleInitiateConversation.bind(this));
+        document.addEventListener('newChat', this.handleNewChat.bind(this));
+
+
+    }
+
+    handleInitiateConversation = event => {
+        this.shadow.innerHTML = '';
+    }
+
+    handleNewChat = event => {
+        this.render();
     }
 
     connectedCallback() {
