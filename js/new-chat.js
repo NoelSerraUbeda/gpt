@@ -10,11 +10,11 @@ class MenuGPT extends HTMLElement {
 
     render() {
 
-        this.shadow.innerHTML = 
+        this.shadow.innerHTML =
         /*html*/`
         
         <style>
-            .new-conversations{
+        .new-conversations{
             padding: 0.9rem;
             padding-right:1.5rem;
         }
@@ -122,10 +122,13 @@ class MenuGPT extends HTMLElement {
                 </div>
             </div>
         </section>
-
       `
-    } 
-              
+        const newConversationElement = this.shadow.querySelector('.new-conversation');
+        
+        newConversationElement.addEventListener('click', () => {
+            document.dispatchEvent(new CustomEvent('restore', {}));
+        });
+    }
 }
 customElements.define('menu-component', MenuGPT);
 

@@ -4,7 +4,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <link rel="shortcut icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/ChatGPT_logo.svg/512px-ChatGPT_logo.svg.png">
+  <link rel="shortcut icon"
+    href="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/ChatGPT_logo.svg/512px-ChatGPT_logo.svg.png">
 
   <title>ChettoGPT</title>
   <meta name="description" content="descripción de la web, se recomienda 90 caracteres">
@@ -20,20 +21,17 @@
 </head>
 
 <body>
-  <aside>
-    <menu-component></menu-component>
-    <history-component></history-component>
-    <user-component></user-component>
-  </aside>
+  <aside-component>
+    <menu-component slot="content"></menu-component>
+    <history-component slot="content"></history-component>
+    <user-component slot="content"></user-component>
+  </aside-component>
   <main>
     <close-component></close-component>
     <conversation-component></conversation-component>
-    <div class="user-interaction">
-      <examples-component></examples-component>
-        <input-component></input-component>
-    </div>
+    <examples-component></examples-component>
+    <input-component></input-component>
   </main>
 </body>
 
 </html>
-

@@ -2,6 +2,14 @@ class Examples extends HTMLElement {
     constructor() {
         super();
         this.shadow = this.attachShadow({ mode: 'open' });
+
+        document.addEventListener('deleteComponent', (event) => {
+            this.shadow.innerHTML = '';
+        });
+
+        document.addEventListener('restore', (event) => {
+            this.render();
+        });
     }
 
     connectedCallback() {
@@ -10,7 +18,7 @@ class Examples extends HTMLElement {
 
     render() {
 
-        this.shadow.innerHTML = 
+        this.shadow.innerHTML =
         /*html*/`
         
         <style>
@@ -19,6 +27,7 @@ class Examples extends HTMLElement {
             flex-wrap: wrap;
             gap: 0.5rem;
             justify-content: center;
+            margin-bottom:10rem;
         }
 
         .example{
@@ -178,8 +187,7 @@ class Examples extends HTMLElement {
             </article>
         </section>
       `
-    } 
-              
+    }
 }
 customElements.define('examples-component', Examples);
 

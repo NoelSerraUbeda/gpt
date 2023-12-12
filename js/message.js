@@ -1,4 +1,4 @@
-class FileUpload extends HTMLElement {
+class Message extends HTMLElement {
     constructor() {
         super();
         this.shadow = this.attachShadow({ mode: 'open' });
@@ -6,7 +6,7 @@ class FileUpload extends HTMLElement {
 
     connectedCallback() {
         this.render();
-        this.Habilitate();
+        this.habilitate();
     }
 
     render() {
@@ -15,9 +15,14 @@ class FileUpload extends HTMLElement {
         /*html*/`
         
         <style>
+
         .message-input {
-            margin: 15px auto; 
-            width:55rem;
+            width: 55rem;
+            margin-bottom:15px;
+            position: fixed;
+            bottom: 0;
+            margin-left:-27.5rem;
+            left:none;
         }
 
         .message-input .attach-button button{
@@ -126,6 +131,39 @@ class FileUpload extends HTMLElement {
             visibility: visible;
         }
 
+        .attach-button .tooltiptext{
+            background-color: black;
+            border-radius: 0.5rem;
+            color: #fff;
+            font-family: 'SoehneBuch', sans-serif;
+            font-size: 0.8rem;
+            margin-top: -2.5rem;
+            margin-left: -4.3rem;
+            opacity: 0;
+            padding: 0.5rem 0;
+            pointer-events: none; 
+            position: absolute;
+            text-align: center;
+            transition: opacity 0.3s;
+            width: 120px;
+            z-index: 1001;
+        }
+
+        .attach-button .tooltiptext::after {
+            border-width: 5px;
+            border-style: solid;
+            border-color: rgb(0, 0, 0) transparent transparent transparent;
+            content: "";
+            left: 45%;
+            position: absolute;
+            top: 100%;   
+        }
+
+        .attach-button:hover .tooltiptext{
+            opacity: 1;
+            visibility: visible;
+        }
+
         </style>
 
         <section class="message-input">
@@ -136,6 +174,7 @@ class FileUpload extends HTMLElement {
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M9 7C9 4.23858 11.2386 2 14 2C16.7614 2 19 4.23858 19 7V15C19 18.866 15.866 22 12 22C8.13401 22 5 18.866 5 15V9C5 8.44772 5.44772 8 6 8C6.55228 8 7 8.44772 7 9V15C7 17.7614 9.23858 20 12 20C14.7614 20 17 17.7614 17 15V7C17 5.34315 15.6569 4 14 4C12.3431 4 11 5.34315 11 7V15C11 15.5523 11.4477 16 12 16C12.5523 16 13 15.5523 13 15V9C13 8.44772 13.4477 8 14 8C14.5523 8 15 8.44772 15 9V15C15 16.6569 13.6569 18 12 18C10.3431 18 9 16.6569 9 15V7Z" fill="currentColor"></path>
                     </svg> 
                     <input multiple="" type="file" tabindex="-1" class="hidden" style="display: none;">
+                    <span class="tooltiptext">Añadir archivo</span>   
                     </button>
                 </div>
                 <div class="form-element">
@@ -153,7 +192,8 @@ class FileUpload extends HTMLElement {
         </section>
       `
     }
-    Habilitate() {
+
+    habilitate() {
         const textarea = this.shadow.querySelector('.form-element textarea');
         const sendButton = this.shadow.querySelector('.send-button button');
         const buttonParent = sendButton.parentElement;
@@ -166,8 +206,16 @@ class FileUpload extends HTMLElement {
             buttonParent.classList.toggle('active', validate);
             sendButton.disabled = !validate;
         });
+
+        sendButton.addEventListener('click', (event) => {
+            event.preventDefault();
+
+            document.dispatchEvent(new CustomEvent('deleteComponent'));
+            document.dispatchEvent(new CustomEvent('sendMessage'));
+        });
     }
+
 }
-customElements.define('input-component', FileUpload);
+customElements.define('input-component', Message);
 
 

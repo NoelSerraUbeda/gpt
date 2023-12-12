@@ -12,20 +12,18 @@ class Close extends HTMLElement {
         let isAsideOpen = true;
 
         const updateAside = () => {
-            const aside = this.closest('body').querySelector('aside');
+            const aside = this.closest('body').querySelector('aside-component');
             aside.style.width = isAsideOpen ? '260px' : '0';
             closeButton.classList.toggle('closed', !isAsideOpen);
             overlay.classList.toggle('visible', isAsideOpen);
         };
 
         const handleMouseOver = () => {
-            if (isAsideOpen) {
-                overlay.classList.add('hovered');
-            }
+            if (isAsideOpen) overlay.classList.add('hovered');
         };
 
         const handleMouseOut = () => {
-            overlay.classList.remove('hovered');
+            overlay.classList.remove('visible', 'hovered');
         };
 
         closeButton.addEventListener('click', () => {
@@ -38,7 +36,7 @@ class Close extends HTMLElement {
     }
 
     render() {
-        this.shadow.innerHTML = 
+        this.shadow.innerHTML =
         /*html*/`
         <style>
             .close-button {
@@ -92,14 +90,6 @@ class Close extends HTMLElement {
                 opacity: 1;
             }
 
-            .user-interaction {
-                display: flex;
-                flex-direction: column;
-                gap: 1rem;
-                padding: 1.5rem 0;
-                width: 47%;
-            }
-
             .overlay {
                 position: fixed;
                 opacity: 0.5;
@@ -118,13 +108,50 @@ class Close extends HTMLElement {
                 top: 0; 
                 left: 0; 
             }
+
+
+            .close-button .tooltiptext{
+                background-color: black;
+                border-radius: 0.5rem;
+                color: #fff;
+                font-family: 'SoehneBuch', sans-serif;
+                font-size: 0.8rem;
+                margin-top: -3.5rem;
+                margin-left: 2rem;
+                opacity: 0;
+                padding: 0.5rem 0;
+                pointer-events: none; 
+                position: absolute;
+                text-align: center;
+                transition: opacity 0.3s;
+                width: 100px;
+                z-index: 1001;
+            }
+
+            .close-button .tooltiptext::after {
+                border-width: 8px;
+                transform: rotate(90deg);
+                border-style: solid;
+                border-color: rgb(0, 0, 0) transparent transparent transparent;
+                content: "";
+                left: -15%;
+                position: absolute;
+                top: 27%;   
+            }
+
+            .close-button:hover .tooltiptext{
+                opacity: 1;
+                visibility: visible;
+            }
+
         </style>
 
-        <div class="close-button" title="Close sidebar">
+        <div class="close-button">
             <div class="button-content">
                 <div class="line"></div>
                 <div class="line"></div>
             </div>
+            <span class="tooltiptext">Cerrar barra</span> 
         </div>
         <div class="overlay"></div>
         `;

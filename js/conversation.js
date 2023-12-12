@@ -1,8 +1,19 @@
 class Conversation extends HTMLElement {
+
     constructor() {
         super();
         this.shadow = this.attachShadow({ mode: 'open' });
+
+        document.addEventListener('deleteComponent', (event) => {
+            this.shadow.innerHTML = '';
+        });
+
+        document.addEventListener('restore', (event) => {
+            this.render();
+        });
+
     }
+
 
     connectedCallback() {
         this.render();
@@ -10,7 +21,7 @@ class Conversation extends HTMLElement {
 
     render() {
 
-        this.shadow.innerHTML = 
+        this.shadow.innerHTML =
         /*html*/`
         
         <style>
@@ -41,7 +52,6 @@ class Conversation extends HTMLElement {
             width:20rem;
             margin-left:3.3rem;
         }
-
 
         .welcome-logo{
             align-items: center;
@@ -85,8 +95,7 @@ class Conversation extends HTMLElement {
             </section>
         </div>
       `
-    } 
-              
+    }
 }
 customElements.define('conversation-component', Conversation);
 
