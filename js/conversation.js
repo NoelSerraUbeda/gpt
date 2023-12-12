@@ -4,16 +4,17 @@ class Conversation extends HTMLElement {
         super();
         this.shadow = this.attachShadow({ mode: 'open' });
 
-        document.addEventListener('InitiateConversation', (event) => {
-            this.shadow.innerHTML = '';
-        });
-
-        document.addEventListener('newChat', (event) => {
-            this.render();
-        });
-
+        document.addEventListener('InitiateConversation', this.handleInitiateConversation.bind(this));
+        document.addEventListener('newChat', this.handleNewChat.bind(this));
     }
 
+    handleInitiateConversation = event => {
+        this.shadow.innerHTML = '';
+    }
+
+    handleNewChat = event => {
+        this.render();
+    }
 
     connectedCallback() {
         this.render();

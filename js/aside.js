@@ -23,6 +23,7 @@ class Aside extends HTMLElement {
 
             closeButton.classList.toggle('closed', !isAsideOpen);
             overlay.classList.toggle('visible', isAsideOpen);
+            overlay.classList.toggle('fade-out', !isAsideOpen);
         };
 
         closeButton.addEventListener('click', () => {
@@ -36,6 +37,13 @@ class Aside extends HTMLElement {
 
         closeButton.addEventListener('mouseout', () => {
             overlay.classList.remove('visible', 'hovered');
+        });
+
+        // Event listener para manejar la animación de transición
+        overlay.addEventListener('transitionend', () => {
+            if (!isAsideOpen) {
+                overlay.classList.remove('fade-out');
+            }
         });
     }
 
@@ -107,7 +115,8 @@ class Aside extends HTMLElement {
                 position: fixed;
                 opacity: 0.5;
                 width: 260px;
-                transition: background 0.3s ease;
+                transition: background 0.3s ease, opacity 0.3s ease;
+
             }
 
             .overlay.visible {
@@ -122,6 +131,10 @@ class Aside extends HTMLElement {
                 left: 0; 
             }
 
+            .overlay.fade-out {
+                opacity: 0;
+            }
+
             .close-button .tooltiptext{
                 background-color: black;
                 border-radius: 0.5rem;
@@ -129,7 +142,7 @@ class Aside extends HTMLElement {
                 font-family: 'SoehneBuch', sans-serif;
                 font-size: 0.8rem;
                 margin-top: -3.5rem;
-                margin-left: 2rem;
+                margin-left: 2.5rem;
                 opacity: 0;
                 padding: 0.5rem 0;
                 pointer-events: none; 
