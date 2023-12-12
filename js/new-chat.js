@@ -126,7 +126,7 @@ class MenuGPT extends HTMLElement {
         const newConversationElement = this.shadow.querySelector('.new-conversation');
         
         newConversationElement.addEventListener('click', () => {
-            document.dispatchEvent(new CustomEvent('restore', {}));
+            document.dispatchEvent(new CustomEvent('newChat', {}));
         });
     }
 }

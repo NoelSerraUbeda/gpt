@@ -2,11 +2,14 @@ class Message extends HTMLElement {
     constructor() {
         super();
         this.shadow = this.attachShadow({ mode: 'open' });
+
+        document.addEventListener('newChat', (event) => {
+            this.render();
+        });
     }
 
     connectedCallback() {
         this.render();
-        this.habilitate();
     }
 
     render() {
@@ -164,6 +167,15 @@ class Message extends HTMLElement {
             visibility: visible;
         }
 
+        @media only screen and (max-width: 900px) {
+            .message-input {
+                width: 30rem;
+                margin-bottom:20px;
+                margin-left:-240px;
+                margin-top:10px;
+            }    
+        }
+
         </style>
 
         <section class="message-input">
@@ -181,40 +193,33 @@ class Message extends HTMLElement {
                     <textarea placeholder="Message ChatGPT..."></textarea>
                 </div>
                 <div class="send-button">
-                    <button>
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="text-white dark:text-black">
-                        <path d="M7 11L12 6L17 11M12 18V7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                    </svg>            
-                    <span class="tooltiptext">Enviar mensaje</span>                  
+                    <button disabled>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="text-white dark:text-black">
+                            <path d="M7 11L12 6L17 11M12 18V7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                        </svg>            
+                        <span class="tooltiptext">Enviar mensaje</span>                  
                     </button>
                 </div>
             </form>
         </section>
       `
-    }
 
-    habilitate() {
         const textarea = this.shadow.querySelector('.form-element textarea');
         const sendButton = this.shadow.querySelector('.send-button button');
         const buttonParent = sendButton.parentElement;
 
-        sendButton.disabled = true;
-
         textarea.addEventListener('input', () => {
             const validate = textarea.value !== '';
-
             buttonParent.classList.toggle('active', validate);
             sendButton.disabled = !validate;
         });
 
         sendButton.addEventListener('click', (event) => {
             event.preventDefault();
-
-            document.dispatchEvent(new CustomEvent('deleteComponent'));
-            document.dispatchEvent(new CustomEvent('sendMessage'));
+            this.render();
+            document.dispatchEvent(new CustomEvent('InitiateConversation'));
         });
     }
-
 }
 customElements.define('input-component', Message);
 

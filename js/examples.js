@@ -3,11 +3,11 @@ class Examples extends HTMLElement {
         super();
         this.shadow = this.attachShadow({ mode: 'open' });
 
-        document.addEventListener('deleteComponent', (event) => {
+        document.addEventListener('InitiateConversation', (event) => {
             this.shadow.innerHTML = '';
         });
 
-        document.addEventListener('restore', (event) => {
+        document.addEventListener('newChat', (event) => {
             this.render();
         });
     }
@@ -129,6 +129,17 @@ class Examples extends HTMLElement {
         .example-send-button:hover .tooltiptext{
             opacity: 1;
             visibility: visible;
+        }
+
+        @media only screen and (max-width: 900px) {
+            .example {
+                width: 27rem;
+            }  
+            .examples {
+                height: 9rem;
+                overflow:hidden;
+                margin:-10px;
+            }    
         }
         </style>
 
