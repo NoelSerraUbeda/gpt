@@ -6,3 +6,4 @@ import './new-chat.js';
 import './user-interaction.js';
 import './user-menu.js';
 import './name.js';
+import './response.js';

@@ -190,7 +190,7 @@ class Message extends HTMLElement {
                     </button>
                 </div>
                 <div class="form-element">
-                    <textarea placeholder="Message ChatGPT..."></textarea>
+                    <textarea placeholder="Message ChatGPT..." autofocus></textarea>
                 </div>
                 <div class="send-button">
                     <button disabled>
@@ -208,10 +208,21 @@ class Message extends HTMLElement {
         const sendButton = this.shadow.querySelector('.send-button button');
         const buttonParent = sendButton.parentElement;
 
-        textarea.addEventListener('input', () => {
-            const validate = textarea.value !== '';
+        const activateSendButton = () => {
+            const validate = textarea.value.trim() !== '';
             buttonParent.classList.toggle('active', validate);
             sendButton.disabled = !validate;
+        };
+
+        textarea.addEventListener('input', activateSendButton);
+
+        textarea.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                if (textarea.value.trim() !== '') {
+                    sendButton.click();
+                }
+            }
         });
 
         sendButton.addEventListener('click', (event) => {

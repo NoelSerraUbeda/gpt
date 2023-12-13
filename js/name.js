@@ -3,46 +3,35 @@ class Name extends HTMLElement {
         super();
         this.shadow = this.attachShadow({ mode: 'open' });
 
-        document.addEventListener('startChat', this.handlestartChat.bind(this));
-        document.addEventListener('newChat', this.handleNewChat.bind(this));
 
         this.isDropdownOpen = false;
     }
 
-    handlestartChat = event => {
-        this.shadow.innerHTML = '';
-    }
-
-    handleNewChat = event => {
-        this.render();
-        this.setupEventListeners();
-    }
-
-    connectedCallback() {
-        this.render();
-        this.setupEventListeners();
-    }
-
     toggleDropdown(event) {
         event.stopPropagation();
-    
+        
         this.isDropdownOpen = !this.isDropdownOpen;
         this.render();
         this.setupEventListeners();
     }
-
+    
     setupEventListeners() {
         const nameSection = this.shadow.querySelector('.name');
         if (nameSection) {
             nameSection.removeEventListener('click', this.toggleDropdown.bind(this));
             nameSection.addEventListener('click', this.toggleDropdown.bind(this));
         }
-
+        
         const button = this.shadow.querySelector('.dropdown-button');
         if (button) {
             button.removeEventListener('click', this.toggleDropdown.bind(this));
             button.addEventListener('click', this.toggleDropdown.bind(this));
         }
+    }
+    
+    connectedCallback() {
+        this.render();
+        this.setupEventListeners();
     }
 
     render() {
