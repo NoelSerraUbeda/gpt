@@ -217,7 +217,10 @@ class Message extends HTMLElement {
         sendButton.addEventListener('click', (event) => {
             event.preventDefault();
             this.render();
-            document.dispatchEvent(new CustomEvent('InitiateConversation'));
+            document.dispatchEvent(new CustomEvent('startChat'));
+
+            const messageValue = textarea.value;
+            document.dispatchEvent(new CustomEvent('newPrompt', { detail: { message: messageValue } }));
         });
     }
 }

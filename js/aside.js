@@ -18,6 +18,9 @@ class Aside extends HTMLElement {
             closeButton.style.left = `${isAsideOpen ? 17 : asideWidth + 0.5}rem`;
             closeButton.classList.toggle('closed', !isAsideOpen);
             overlay.classList.toggle('visible', isAsideOpen);
+
+            const tooltipText = isAsideOpen ? 'Cerrar barra lateral' : 'Abrir barra lateral';
+            this.shadowRoot.querySelector('.tooltiptext').textContent = tooltipText;
         };
 
         closeButton.addEventListener('click', () => {
@@ -124,10 +127,10 @@ class Aside extends HTMLElement {
                 color: #fff;
                 font-family: 'SoehneBuch', sans-serif;
                 font-size: 0.8rem;
-                margin-top: -3.5rem;
+                margin-top: -4rem;
                 margin-left: 2.5rem;
                 opacity: 0;
-                padding: 0.5rem 0;
+                padding: 0.9rem 0.3rem;
                 pointer-events: none; 
                 position: absolute;
                 text-align: center;
