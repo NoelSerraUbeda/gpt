@@ -3,8 +3,6 @@ class Response extends HTMLElement {
         super();
         this.shadow = this.attachShadow({ mode: 'open' });
 
-        this.rendered = false;
-
         document.addEventListener('newPrompt', this.handleNewPrompt.bind(this));
         document.addEventListener('newChat', this.handleNewChat.bind(this));
     }
@@ -15,19 +13,10 @@ class Response extends HTMLElement {
 
     handleNewPrompt = event => {
         const promptContent = event.detail.message;
-
-        if (!this.rendered) {
-            this.render();
-            this.rendered = true;
-        }
-
         this.displayPrompt(promptContent);
     }
 
-    connectedCallback() {}
-
     displayPrompt(content) {
-
 
         const responseArea = this.shadow.querySelector('.response-area');
 
@@ -61,8 +50,12 @@ class Response extends HTMLElement {
         responseArea.appendChild(container);
     }
 
+    connectedCallback() {
+        this.render();
+    }
+
     render() {
-        this.shadow.innerHTML = 
+        this.shadow.innerHTML =
         /*html*/`
         <style>
             .conversation {
@@ -78,29 +71,27 @@ class Response extends HTMLElement {
             }
 
             .response-area {
-    font-family: "SoehneBuch", sans-serif;
-    position: absolute;
-    height: 50rem;
-    width: 60rem;
-    bottom: 5rem;
-    overflow-y: auto;
-    padding: 10px;
-}
+                font-family: "SoehneBuch", sans-serif;
+                position: absolute;
+                height: 50rem;
+                width: 60rem;
+                bottom: 5rem;
+                overflow-y: auto;
+                padding: 10px;
+            }
 
-/* Oculta la barra de desplazamiento en navegadores webkit (Chrome, Safari) */
-.response-area::-webkit-scrollbar {
-    width: 0.1em;
-}
+            .response-area::-webkit-scrollbar {
+                width: 0.1em;
+            }
 
-.response-area::-webkit-scrollbar-thumb {
-    background-color: transparent;
-}
+            .response-area::-webkit-scrollbar-thumb {
+                background-color: transparent;
+            }
 
-.response-area {
-    scrollbar-width: thin; /* Para navegadores que no son webkit (Firefox) */
-    scrollbar-color: transparent transparent; /* Para navegadores que no son webkit (Firefox) */
-}
-
+            .response-area {
+                scrollbar-width: thin; 
+                scrollbar-color: transparent transparent;
+            }
 
             .message-container {
                 display: flex;
@@ -144,11 +135,11 @@ class Response extends HTMLElement {
 
         <section class="conversation">
             <div class="response-area">
-
+            
             </div>
         </section>
       `;
-    } 
+    }
 }
 
 customElements.define('response-component', Response);

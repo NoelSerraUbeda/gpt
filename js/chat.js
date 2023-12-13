@@ -22,7 +22,6 @@ class Conversation extends HTMLElement {
 
     render() {
 
-        
         this.shadow.innerHTML =
         /*html*/`
         
