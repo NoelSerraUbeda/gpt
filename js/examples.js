@@ -30,7 +30,6 @@ class Examples extends HTMLElement {
             flex-wrap: wrap;
             gap: 0.5rem;
             justify-content: center;
-            margin-bottom:10rem;
         }
 
         .example{

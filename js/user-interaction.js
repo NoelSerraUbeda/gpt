@@ -54,17 +54,26 @@ class Message extends HTMLElement {
             width: 100%
         }
 
-        .message-input form .form-element textarea{
+        .message-input form .form-element textarea {
             background-color: hsl(235, 11%, 23%);
             border: none;
             color: hsl(0, 0%, 100%);
             font-family: 'SoehneBuch', Arial;
             font-size: 0.9rem;
-            height: 1.2rem;
+            height: 1.5rem;
             max-height: 5rem;
             resize: none;
-            width: 100%;
-            padding-top:0.5rem;
+            width: 99%;
+            padding-top: 0.5rem;
+            overflow: auto;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: transparent;
         }
 
         .message-input form .form-element textarea::placeholder{
@@ -83,8 +92,7 @@ class Message extends HTMLElement {
             border-radius: 0.5rem;
             display: flex;
             padding: 0.1rem 0.2rem;
-            cursor:not-allowed;
-            
+            cursor:not-allowed;   
         }
 
         .message-input .send-button svg{

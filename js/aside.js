@@ -159,6 +159,10 @@ class Aside extends HTMLElement {
                 aside{
                     display:none
                 }
+
+                .overlay{
+                    display:none
+                }
             }
         
         </style>
