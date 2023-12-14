@@ -21,7 +21,7 @@ class Name extends HTMLElement {
     }
 
     setupEventListeners() {
-        const nameSection = this.shadow.querySelector('.name');
+        const nameSection = this.shadow.querySelector('.name-content');
         if (nameSection) {
             nameSection.removeEventListener('click', this.toggleDropdown.bind(this));
             nameSection.addEventListener('click', this.toggleDropdown.bind(this));
@@ -55,9 +55,8 @@ class Name extends HTMLElement {
                 padding-right: 0.5rem;
                 padding-top: 0.2rem;
                 width: 100%;
-                background-color: hsl(235, 11%, 23%, 0.5);
+                background-color: hsl(235, 11%, 23%, 0.9);
                 z-index:2;
-                top:0.5rem;
             }
 
             h1 {
@@ -108,7 +107,7 @@ class Name extends HTMLElement {
                 border: 0.1rem hsl(235, 11%, 23%) solid;
                 border-radius: 0.5rem;
                 position: absolute;
-                margin-top: 19rem;
+                margin-top: 4rem;
                 z-index: 2;
             }
 
@@ -124,11 +123,14 @@ class Name extends HTMLElement {
             .head{
                 display:flex;
                 justify-content: space-between; 
+                cursor:pointer;
             }
 
-            svg {
-                width:30px;
-                margin-right:1rem;
+            .head svg {
+                width:60px;
+                position:absolute;
+                top:1rem;
+                right:1rem;
             }
 
             .option{
@@ -156,6 +158,12 @@ class Name extends HTMLElement {
         <section class="name">
             <div class="name-content">
                 <h1>ChettoGPT 3.5</h1>
+                <div class="dropdown-button">
+                <svg viewBox="0 0 16 17" fill="none" class="text-token-text-tertiary dropdown-button">
+                    <path d="M11.3346 7.83203L8.00131 11.1654L4.66797 7.83203" stroke="grey" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+            </div>
+            </div>
                 <div class="dropdown-content">
                     <div class="option">
                         <div class="head">
@@ -164,19 +172,13 @@ class Name extends HTMLElement {
                         </div>
                         <p>Great for everyday tasks</p>
                     </div>
-                    <div class="line"></div>
-                    <div class="option">
-                        <div class="head">
-                            <a href="Adios" id="version4">GPT-4</a>
-                        </div>
-                        <p>Our smartest and most capable model.
-                        Includes DALL.E, browsing and more.</p>
+                <div class="line"></div>
+                <div class="option">
+                    <div class="head">
+                        <a href="Adios" id="version4">GPT-4</a>
                     </div>
-                </div>
-                <div class="dropdown-button">
-                    <svg viewBox="0 0 16 17" fill="none" class="text-token-text-tertiary dropdown-button">
-                        <path d="M11.3346 7.83203L8.00131 11.1654L4.66797 7.83203" stroke="grey" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                    </svg>
+                    <p>Our smartest and most capable model.
+                    Includes DALL.E, browsing and more.</p>
                 </div>
             </div>
         </section>
