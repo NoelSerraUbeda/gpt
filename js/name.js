@@ -44,9 +44,10 @@ class Name extends HTMLElement {
         /*html*/`
         <style>
             .name {
+                font-family: "SoehneBuch", sans-serif;
                 position: absolute;
                 top: 0;
-                left: 0;
+                left: 3rem;
                 display: flex;
                 align-items: start;
                 justify-content: start;
@@ -56,10 +57,10 @@ class Name extends HTMLElement {
                 width: 100%;
                 background-color: hsl(235, 11%, 23%, 0.5);
                 z-index:2;
+                top:0.5rem;
             }
 
             h1 {
-                font-family: "SoehneBuch", sans-serif;
                 margin-right: 8px;
                 font-size: 18px;
                 color: white;
@@ -103,38 +104,74 @@ class Name extends HTMLElement {
             .dropdown-content {
                 display: ${this.isDropdownOpen ? 'block' : 'none'};
                 box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-                background-color: hsl(240, 11%, 18%);
-                border: 0.1rem grey solid;
+                background-color: hsl(220, 4%, 13%);
+                border: 0.1rem hsl(235, 11%, 23%) solid;
                 border-radius: 0.5rem;
                 position: absolute;
-                margin-top: 11rem;
-                min-width: 160px;
+                margin-top: 19rem;
                 z-index: 2;
             }
 
             .dropdown-content a {
-                font-family: "SoehneBuch", sans-serif;
-                border: 0.2rem hsl(240, 11%, 18%) solid;
                 text-decoration: none;
                 padding: 12px 16px;
                 display: block;
                 color: white;
                 margin: 8px;
+                width:100%;
             }
 
-            .dropdown-content a:hover {
-                background-color: hsl(220, 3%, 17%);
-                border: 0.2rem white solid;
-                border-radius: 0.5rem;
+            .head{
+                display:flex;
+                justify-content: space-between; 
             }
+
+            svg {
+                width:30px;
+                margin-right:1rem;
+            }
+
+            .option{
+                margin:0.5rem;
+            }
+
+            .option:hover {
+                background-color: hsl(220, 3%, 17%);
+                border-radius: 0.3rem;
+            }
+
+            .line{
+                border:0.1rem solid hsl(235, 11%, 23%);
+            }
+
+            .option p {
+                color: hsl(0, 0%, 60%);
+                margin:0 0 0.8rem 1.5rem;
+                padding-bottom:10px;
+                max-width:20rem;
+            }
+
         </style>
 
         <section class="name">
             <div class="name-content">
                 <h1>ChettoGPT 3.5</h1>
                 <div class="dropdown-content">
-                    <a href="Hola" id="version35">3.5</a>
-                    <a href="Adios" id="version4">GPT-4</a>
+                    <div class="option">
+                        <div class="head">
+                            <a href="Hola" id="version35">3.5</a>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>check-circle-outline</title><path fill="white" stroke="white" d="M12 2C6.5 2 2 6.5 2 12S6.5 22 12 22 22 17.5 22 12 17.5 2 12 2M12 20C7.59 20 4 16.41 4 12S7.59 4 12 4 20 7.59 20 12 16.41 20 12 20M16.59 7.58L10 14.17L7.41 11.59L6 13L10 17L18 9L16.59 7.58Z" /></svg>
+                        </div>
+                        <p>Great for everyday tasks</p>
+                    </div>
+                    <div class="line"></div>
+                    <div class="option">
+                        <div class="head">
+                            <a href="Adios" id="version4">GPT-4</a>
+                        </div>
+                        <p>Our smartest and most capable model.
+                        Includes DALL.E, browsing and more.</p>
+                    </div>
                 </div>
                 <div class="dropdown-button">
                     <svg viewBox="0 0 16 17" fill="none" class="text-token-text-tertiary dropdown-button">
