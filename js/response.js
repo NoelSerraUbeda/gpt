@@ -106,19 +106,14 @@ class Response extends HTMLElement {
                 font-family: "SoehneBuch", sans-serif;
                 flex-direction: column;
                 padding-bottom: 1.5rem;
-                padding-top: 1.5rem;
+                padding-top: 4.5rem;
                 padding-right: 0.5rem;
                 position: absolute;
                 overflow-y: auto;
                 bottom: 4.5rem;
-<<<<<<< HEAD
-                width: 46%;
-                top: 43rem;
-=======
                 width: 46rem;
                 overflow-y: auto;
                 top: 41rem;
->>>>>>> 7cb920600f2bf202f01883112a6d3797053c34a4
             }
 
             .response-area::-webkit-scrollbar {
@@ -130,7 +125,7 @@ class Response extends HTMLElement {
             }
 
             .message-container{
-                margin-top:2.5rem;
+                margin-top:2rem;
             }
 
             .avatar-container {

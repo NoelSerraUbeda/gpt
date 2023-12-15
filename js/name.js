@@ -138,7 +138,6 @@ class Name extends HTMLElement {
 
             .head{
                 justify-content: space-between; 
-<<<<<<< HEAD
                 display:flex;
             }
 
@@ -146,7 +145,6 @@ class Name extends HTMLElement {
                 margin-right:1rem;
                 margin-top:1.5rem;
                 width:40px;
-=======
                 cursor:pointer;
             }
 
@@ -155,7 +153,6 @@ class Name extends HTMLElement {
                 position:absolute;
                 top:1rem;
                 right:1rem;
->>>>>>> 7cb920600f2bf202f01883112a6d3797053c34a4
             }
 
             .option{
