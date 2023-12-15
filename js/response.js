@@ -7,74 +7,81 @@ class Response extends HTMLElement {
         document.addEventListener('newChat', event => this.handleNewChat(event));
     }
 
-    handleNewChat = event => {
+    handleNewChat = () => {
         this.shadow.innerHTML = '';
         this.render();
     }
-
-    handleNewPrompt = event => {
-        const promptContent = event.detail.message;
-        const gptResponse = "Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creación de las hojas, las cuales contenian pasajes de Lorem Ipsum, y más recientemente con software de autoedición, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum";
-        this.displayPrompt('You', promptContent); // Mensaje del usuario
     
-        setTimeout(() => {
-            this.displayPrompt('GPT', gptResponse); // Mensaje de GPT
-            const responseArea = this.shadow.querySelector('.response-area');
-            responseArea.scrollTop = responseArea.scrollHeight;
-        }, 500);
-    }
-
-    // Interfaz
+    handleNewPrompt = async event => {
+        const { message } = event.detail;
+        const gptMessage = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris fermentum dui eu felis gravida, eu aliquet nibh accumsan. Maecenas tristique metus libero, a condimentum lorem gravida ut. Aenean commodo vitae ipsum condimentum faucibus. Morbi massa enim, bibendum vitae nisi quis, molestie aliquet purus. Vivamus maximus risus ac arcu scelerisque hendrerit. Integer ultricies metus libero, a commodo purus convallis nec. Donec blandit velit sit amet ligula vulputate, at interdum dolor malesuada. Vestibulum in ligula ut massa condimentum faucibus ut et sem. Aliquam vestibulum, metus non maximus porttitor, diam ante sollicitudin tortor, vel sollicitudin turpis leo nec magna. Nam eu molestie libero. Nunc posuere, eros sit amet sagittis rutrum, dui erat ultrices est, eget ornare velit urna rhoncus risus. Sed ut libero ac enim ultricies blandit ac vitae quam.";
+        
+        this.displayPrompt('You', message);
+    
+        await this.delay(500);
+        document.dispatchEvent(new CustomEvent('stop'));
+    
+        this.displayPrompt('GPT', gptMessage);
+    
+        const responseArea = this.shadow.querySelector('.response-area');
+        responseArea.scrollTop = responseArea.scrollHeight;
+    
+        const delay = gptMessage.split(' ').length * 32;
+        await this.delay(delay);
+        document.dispatchEvent(new CustomEvent('reStart'));
+    };
+    
     displayPrompt(user, content) {
         const responseArea = this.shadow.querySelector('.response-area');
+        const container = this.createContainer('div', 'message-container');
     
-        // Contenedor principal
-        const container = document.createElement('div');
-        container.classList.add('message-container');
-    
-        // Avatar
         const avatarContainer = this.createContainer('div', 'avatar-container');
         avatarContainer.innerHTML = `<h1>${user}</h1><img src="${user === 'You' ? '../images/user-avatar.png' : '../images/gpt-avatar.png'}" class="avatar">`;
     
-        // Párrafo sin clase de animación para el usuario
         const paragraphContainer = this.createContainer('div', 'paragraph-container');
         paragraphContainer.innerHTML = `<div>${avatarContainer.outerHTML}</div><p>${content}</p>`;
     
-        // Párrafo con clase 'typing-text' para la animación para el GPT
         const typingTextContainer = this.createContainer('div', 'paragraph-container');
         typingTextContainer.innerHTML = `<div>${avatarContainer.outerHTML}</div><p class="typing-text-gpt"></p>`;
     
-        // Añadir contenedores según el usuario
         container.appendChild(user === 'You' ? paragraphContainer : typingTextContainer);
         responseArea.appendChild(container);
     
-        // Letras GPT
         if (user === 'GPT') {
-            const letters = content.split('');
-    
-            // Animar cada letra en secuencia
-            letters.forEach((letter, index) => {
-                setTimeout(() => {
-                    const typingText = typingTextContainer.querySelector('.typing-text-gpt');
-                    typingText.innerHTML += letter;
-                }, index * 10);
-            });
-    
-            // Desplazar
-            setTimeout(() => {
-                responseArea.scrollTop = responseArea.scrollHeight;
-            }, letters.length * 10);
+            this.typingText(typingTextContainer, content);
         } else {
             responseArea.scrollTop = responseArea.scrollHeight;
         }
     }
     
-    createContainer(elementType, className) {
+    typingText(typingTextContainer, content) {
+        const words = content.split(' ');
+    
+        const wordTyping = async (word) => {
+            const typingText = typingTextContainer.querySelector('.typing-text-gpt');
+            typingText.innerHTML += word + ' ';
+            const responseArea = this.shadow.querySelector('.response-area');
+            responseArea.scrollTop = responseArea.scrollHeight;
+            await this.delay(30);
+        };
+    
+        const wordTypings = async () => {
+            for (let i = 0; i < words.length; i++) {
+                await wordTyping(words[i], i);
+            }
+        };
+    
+        wordTypings();
+    }
+    
+    delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+    
+    createContainer = (elementType, className) => {
         const container = document.createElement(elementType);
         container.classList.add(className);
         return container;
     }
-
+    
     connectedCallback() {
         this.render();
     }
@@ -84,15 +91,15 @@ class Response extends HTMLElement {
         /*html*/`
         <style>
             .conversation {
-                position: absolute;
-                bottom: 0;
-                right: 0;
-                height: 100rem;
-                width: 100%;
-                display: flex;
                 justify-content: center;
                 align-items: center;
                 text-align: justify;
+                position: absolute;
+                height: 100rem;
+                display: flex;
+                width: 100%;
+                bottom: 0;
+                right: 0;
             }
 
             .response-area {
@@ -102,9 +109,9 @@ class Response extends HTMLElement {
                 padding-top: 1.5rem;
                 padding-right: 0.5rem;
                 position: absolute;
+                overflow-y: auto;
                 bottom: 4.5rem;
                 width: 46%;
-                overflow-y: auto;
                 top: 43rem;
             }
 
@@ -117,22 +124,21 @@ class Response extends HTMLElement {
             }
 
             .message-container{
-
-                margin-top:2rem;
+                margin-top:2.5rem;
             }
 
             .avatar-container {
-                display: flex;
-                align-items: center;
                 flex-direction: row-reverse;
                 justify-content: start;
+                align-items: center;
+                display: flex;
             }
 
             .avatar {
-                width: 30px;
-                height: 30px;
-                border-radius: 50%;
                 margin-right:0.6rem;
+                border-radius: 50%;
+                height: 30px;
+                width: 30px;
             }
 
             h1, p {
@@ -145,6 +151,7 @@ class Response extends HTMLElement {
                 margin-left: 2.6rem;
                 margin-top: 0.5rem;
                 line-height:1.5;
+                max-width:40rem;
             }
 
             @media only screen and (max-width: 900px) {

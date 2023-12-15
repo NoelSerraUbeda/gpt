@@ -15,7 +15,7 @@ class History extends HTMLElement {
         
         <style>
             .history{
-                max-height: 80vh;
+                max-height: 76.5vh;
                 overflow-x: hidden; 
                 overflow-y: auto;
                 padding: 0.5rem 0.5rem;
@@ -96,7 +96,7 @@ class History extends HTMLElement {
 
             .history-record-messages ul li a:hover{
                 background-color: hsl(220, 4%, 13%);
-                border-radius: 0.3rem;
+                border-radius: 0.6rem;
             }
 
             .history-record-messages ul li a:hover::after {

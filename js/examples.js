@@ -41,12 +41,13 @@ class Examples extends HTMLElement {
             justify-content: center;
             padding: 1rem 0.85rem;
             position: relative;
+            cursor: pointer;
             width: 33%;
+            z-index:3;
         }
 
         .example:hover{
             background-color: hsl(236, 10%, 28%);
-            cursor: pointer;
         }
 
         .example-title h2{
@@ -78,7 +79,7 @@ class Examples extends HTMLElement {
             position: absolute;
             right: 0;
             width: 10%;
-            z-index: 1000;
+            z-index: 4;
         }
 
         .example:hover .example-send{
@@ -86,9 +87,9 @@ class Examples extends HTMLElement {
         }
 
         .example-send-button{
-            background-color: hsl(235, 11%, 23%);
+            background-color: hsl(220, 4%, 13%);
             border-radius: 0.3rem;
-            padding: 0.25rem;
+            padding: 0.25rem 0.40rem 0.25rem 0.40rem;
         }
 
         .example-send-button svg{
@@ -115,7 +116,6 @@ class Examples extends HTMLElement {
             text-align: center;
             transition: opacity 0.3s;
             width: 150px;
-            z-index: 1001;
         }
 
         .example-send-button .tooltiptext::after {

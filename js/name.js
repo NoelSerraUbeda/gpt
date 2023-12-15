@@ -44,41 +44,40 @@ class Name extends HTMLElement {
         /*html*/`
         <style>
             .name {
-                font-family: "SoehneBuch", sans-serif;
-                position: absolute;
-                top: 0;
-                left: 3rem;
-                display: flex;
-                align-items: start;
-                justify-content: start;
-                padding-left: 0.25rem;
-                padding-right: 0.5rem;
-                padding-top: 0.2rem;
-                width: 100%;
                 background-color: hsl(235, 11%, 23%, 0.5);
+                font-family: "SoehneBuch", sans-serif;
+                justify-content: start;
+                padding-left: 0.20rem;
+                padding-right: 0.4rem;
+                padding-top: 0.5rem;
+                align-items: start;
+                position: absolute;
+                display: flex;
+                width: 100%;
+                left: 3rem;
                 z-index:2;
-                top:0.5rem;
+                top: 0;
             }
 
             h1 {
+                transition: background-color 0.3s ease;
+                padding-left: 1rem;
                 margin-right: 8px;
+                cursor: pointer;
                 font-size: 18px;
                 color: white;
                 z-index: 1;
-                padding-left: 1rem;
-                cursor: pointer;
-                transition: background-color 0.3s ease;
             }
 
             .name-content {
-                display: flex;
                 align-items: center;
+                display: flex;
             }
 
             .name-content:hover {
-                cursor: pointer;
                 background-color: hsl(231, 12%, 21%);
                 border-radius: 1rem;
+                cursor: pointer;
             }
 
             .name-content.active {
@@ -88,24 +87,24 @@ class Name extends HTMLElement {
 
             .dropdown-button {
                 justify-content: center;
+                padding-right: 0.5rem;
                 align-items: center;
                 position: relative;
                 cursor: pointer;
                 display: flex;
-                padding-right: 0.5rem;
             }
 
             svg {
-                width: 17px;
                 stroke: grey;
+                width: 17px;
                 z-index: 1;
             }
 
             .dropdown-content {
                 display: ${this.isDropdownOpen ? 'block' : 'none'};
                 box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-                background-color: hsl(220, 4%, 13%);
                 border: 0.1rem hsl(235, 11%, 23%) solid;
+                background-color: hsl(220, 4%, 13%);
                 border-radius: 0.5rem;
                 position: absolute;
                 margin-top: 19rem;
@@ -122,13 +121,14 @@ class Name extends HTMLElement {
             }
 
             .head{
-                display:flex;
                 justify-content: space-between; 
+                display:flex;
             }
 
-            svg {
-                width:30px;
+            .head svg {
                 margin-right:1rem;
+                margin-top:1.5rem;
+                width:40px;
             }
 
             .option{
@@ -145,8 +145,8 @@ class Name extends HTMLElement {
             }
 
             .option p {
-                color: hsl(0, 0%, 60%);
                 margin:0 0 0.8rem 1.5rem;
+                color: hsl(0, 0%, 60%);
                 padding-bottom:10px;
                 max-width:20rem;
             }
