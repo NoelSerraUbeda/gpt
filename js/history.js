@@ -52,7 +52,6 @@ class History extends HTMLElement {
                 color: hsl(0, 0%, 40%);
                 font-family: 'SoehneBuch', sans-serif; 
                 font-size: 0.70rem;
-                text-transform: capitalize;
             }
 
             .history-record-messages ul{
@@ -116,29 +115,31 @@ class History extends HTMLElement {
                 <div class="history-record-title">
                     <h3>Hoy</h3>
                 </div>
-                    <nav class="history-record-messages">
-                        <ul>
-                            <li>
-                                <a href="">Eliminar nombres de clase</a>
-                            </li>
-                        </ul>
-                    </nav>
-                </article>
-                <article class="history-record">
-                    <div class="history-record-title">
-                        <h3>Ayer</h3>
-                    </div>
-                    <nav class="history-record-messages">
-                        <ul>
-                            <li><a href="">Tabla de usuarios Mysql</a></li>
-                            <li><a href="">Eliminar o cambiar nombre</a></li>
-                        </ul>
-                    </nav>
-                </article>
-                <article class="history-record">
-                    <div class="history-record-title">
-                        <h3>Últimos 7 días</h3>
-                    </div>
+                <nav class="history-record-messages">
+                    <ul>
+                        <li>
+                            <a href="">Eliminar nombres de clase</a>
+                        </li>
+                    </ul>
+                </nav>
+            </article>
+
+            <article class="history-record">
+                <div class="history-record-title">
+                    <h3>Ayer</h3>
+                </div>
+                <nav class="history-record-messages">
+                    <ul>
+                        <li><a href="">Tabla de usuarios Mysql</a></li>
+                        <li><a href="">Eliminar o cambiar nombre</a></li>
+                    </ul>
+                </nav>
+            </article>
+
+            <article class="history-record">
+                <div class="history-record-title">
+                    <h3>Últimos 7 días</h3>
+                </div>
                 <nav class="history-record-messages">
                     <ul>
                         <li><a href="">Novedades PHP 8.1</a></li>
@@ -163,6 +164,26 @@ class History extends HTMLElement {
                         <li><a href="">Cómo iniciar un proyecto de React</a></li>
                         <li><a href="">Novedades PHP 8.1</a></li>
                         <li><a href="">Novedades CSS 2022 destacadas</a></li>
+                        <li><a href="">Generador CRUD con Express & Sequelize</a></li>
+                        <li><a href="">Cómo iniciar un proyecto de React</a></li>
+                        <li><a href="">Novedades PHP 8.1</a></li>
+                        <li><a href="">Novedades CSS 2022 destacadas</a></li>
+                        <li><a href="">Generador CRUD con Express & Sequelize</a></li>
+                        <li><a href="">Cómo iniciar un proyecto de React</a></li>
+                    </ul>
+                </nav>
+            </article>
+
+            <article class="history-record">
+                <div class="history-record-title">
+                    <h3>30 días o más</h3>
+                </div>
+                <nav class="history-record-messages">
+                    <ul>
+                        <li><a href="">Generador CRUD con Express & Sequelize</a></li>
+                        <li><a href="">Cómo iniciar un proyecto de React</a></li>
+                        <li><a href="">Novedades PHP 8.1</a></li>
+                        <li><a href="">↑ ↑ ↓ ↓ ← → ← → B A Start.</a></li>
                         <li><a href="">Generador CRUD con Express & Sequelize</a></li>
                         <li><a href="">Cómo iniciar un proyecto de React</a></li>
                         <li><a href="">Novedades PHP 8.1</a></li>

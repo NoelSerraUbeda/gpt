@@ -21,7 +21,7 @@ class Name extends HTMLElement {
     }
 
     setupEventListeners() {
-        const nameSection = this.shadow.querySelector('.name');
+        const nameSection = this.shadow.querySelector('.name-content');
         if (nameSection) {
             nameSection.removeEventListener('click', this.toggleDropdown.bind(this));
             nameSection.addEventListener('click', this.toggleDropdown.bind(this));
@@ -44,6 +44,7 @@ class Name extends HTMLElement {
         /*html*/`
         <style>
             .name {
+<<<<<<< HEAD
                 background-color: hsl(235, 11%, 23%, 0.5);
                 font-family: "SoehneBuch", sans-serif;
                 justify-content: start;
@@ -57,6 +58,21 @@ class Name extends HTMLElement {
                 left: 3rem;
                 z-index:2;
                 top: 0;
+=======
+                font-family: "SoehneBuch", sans-serif;
+                position: absolute;
+                top: 0;
+                left: 3rem;
+                display: flex;
+                align-items: start;
+                justify-content: start;
+                padding-left: 0.25rem;
+                padding-right: 0.5rem;
+                padding-top: 0.2rem;
+                width: 100%;
+                background-color: hsl(235, 11%, 23%, 0.9);
+                z-index:2;
+>>>>>>> 7cb920600f2bf202f01883112a6d3797053c34a4
             }
 
             h1 {
@@ -107,7 +123,7 @@ class Name extends HTMLElement {
                 background-color: hsl(220, 4%, 13%);
                 border-radius: 0.5rem;
                 position: absolute;
-                margin-top: 19rem;
+                margin-top: 4rem;
                 z-index: 2;
             }
 
@@ -122,6 +138,7 @@ class Name extends HTMLElement {
 
             .head{
                 justify-content: space-between; 
+<<<<<<< HEAD
                 display:flex;
             }
 
@@ -129,6 +146,16 @@ class Name extends HTMLElement {
                 margin-right:1rem;
                 margin-top:1.5rem;
                 width:40px;
+=======
+                cursor:pointer;
+            }
+
+            .head svg {
+                width:60px;
+                position:absolute;
+                top:1rem;
+                right:1rem;
+>>>>>>> 7cb920600f2bf202f01883112a6d3797053c34a4
             }
 
             .option{
@@ -156,6 +183,12 @@ class Name extends HTMLElement {
         <section class="name">
             <div class="name-content">
                 <h1>ChettoGPT 3.5</h1>
+                <div class="dropdown-button">
+                <svg viewBox="0 0 16 17" fill="none" class="text-token-text-tertiary dropdown-button">
+                    <path d="M11.3346 7.83203L8.00131 11.1654L4.66797 7.83203" stroke="grey" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+            </div>
+            </div>
                 <div class="dropdown-content">
                     <div class="option">
                         <div class="head">
@@ -164,19 +197,13 @@ class Name extends HTMLElement {
                         </div>
                         <p>Great for everyday tasks</p>
                     </div>
-                    <div class="line"></div>
-                    <div class="option">
-                        <div class="head">
-                            <a href="Adios" id="version4">GPT-4</a>
-                        </div>
-                        <p>Our smartest and most capable model.
-                        Includes DALL.E, browsing and more.</p>
+                <div class="line"></div>
+                <div class="option">
+                    <div class="head">
+                        <a href="Adios" id="version4">GPT-4</a>
                     </div>
-                </div>
-                <div class="dropdown-button">
-                    <svg viewBox="0 0 16 17" fill="none" class="text-token-text-tertiary dropdown-button">
-                        <path d="M11.3346 7.83203L8.00131 11.1654L4.66797 7.83203" stroke="grey" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                    </svg>
+                    <p>Our smartest and most capable model.
+                    Includes DALL.E, browsing and more.</p>
                 </div>
             </div>
         </section>

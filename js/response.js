@@ -111,8 +111,14 @@ class Response extends HTMLElement {
                 position: absolute;
                 overflow-y: auto;
                 bottom: 4.5rem;
+<<<<<<< HEAD
                 width: 46%;
                 top: 43rem;
+=======
+                width: 46rem;
+                overflow-y: auto;
+                top: 41rem;
+>>>>>>> 7cb920600f2bf202f01883112a6d3797053c34a4
             }
 
             .response-area::-webkit-scrollbar {
@@ -149,7 +155,6 @@ class Response extends HTMLElement {
 
             p {
                 margin-left: 2.6rem;
-                margin-top: 0.5rem;
                 line-height:1.5;
                 max-width:40rem;
             }
