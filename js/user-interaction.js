@@ -7,34 +7,53 @@ class Message extends HTMLElement {
             this.render();
         });
 
-        document.addEventListener('stop', event => this.handlestop(event));
+        document.addEventListener('stop', event => this.handleStop(event));
         document.addEventListener('reStart', event => this.handlereStart(event));
+        document.addEventListener('returnSvg', event => this.handleReturnSvg(event));
     }
 
-    handlestop = () => {
-        const textarea = this.shadow.querySelector('.form-element textarea');
-        const sendButton = this.shadow.querySelector('.send-button button');
+    handleStop = () => {
+        this.isStopEventRunning = true;
 
-        textarea.disabled = true;
-        sendButton.disabled = true;
+        const sendButton = this.shadow.querySelector('.send-button button');
+        sendButton.disabled = false;
+
+        const originalClickHandler = sendButton.onclick;
+
+        sendButton.onclick = (event) => {
+            if (this.isStopEventRunning) {
+                document.dispatchEvent(new CustomEvent('stopText'));
+            } else {
+                originalClickHandler && originalClickHandler(event);
+            }
+        };
 
         const buttonSvg = this.shadow.querySelector('.send-button button svg');
         buttonSvg.innerHTML = '<svg fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>stop-circle-outline</title><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4M9,9V15H15V9" /></svg>';
-    }
+
+    };
+
 
     handlereStart = () => {
         const textarea = this.shadow.querySelector('.form-element textarea');
         const sendButton = this.shadow.querySelector('.send-button button');
 
-        textarea.disabled = false;
-        sendButton.disabled = false;
-
         const buttonSvg = this.shadow.querySelector('.send-button button svg');
-        buttonSvg.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="text-white dark:text-black"><path d="M7 11L12 6L17 11M12 18V7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>';
+        buttonSvg.innerHTML = '<svg viewBox="0 0 24 24" fill="none" class="text-white dark:text-black"><path d="M7 11L12 6L17 11M12 18V7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>';
+
+        sendButton.onclick = this.originalSendButtonClickHandler;
+    }
+
+    handleReturnSvg = () => {
+        const buttonSvg = this.shadow.querySelector('.send-button button svg');
+        buttonSvg.innerHTML = '<svg viewBox="0 0 24 24" fill="none" class="text-white dark:text-black"><path d="M7 11L12 6L17 11M12 18V7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>';
     }
 
     connectedCallback() {
         this.render();
+
+        const sendButton = this.shadow.querySelector('.send-button button');
+        this.originalSendButtonClickHandler = sendButton.onclick;
     }
 
     render() {

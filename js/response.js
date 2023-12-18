@@ -5,6 +5,7 @@ class Response extends HTMLElement {
     
         document.addEventListener('newPrompt', event => this.handleNewPrompt(event));
         document.addEventListener('newChat', event => this.handleNewChat(event));
+        document.addEventListener('stopText', event => this.handleStopText(event));
     }
 
     handleNewChat = () => {
@@ -15,8 +16,11 @@ class Response extends HTMLElement {
     handleNewPrompt = async event => {
         const { message } = event.detail;
         const gptMessage = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris fermentum dui eu felis gravida, eu aliquet nibh accumsan. Maecenas tristique metus libero, a condimentum lorem gravida ut. Aenean commodo vitae ipsum condimentum faucibus. Morbi massa enim, bibendum vitae nisi quis, molestie aliquet purus. Vivamus maximus risus ac arcu scelerisque hendrerit. Integer ultricies metus libero, a commodo purus convallis nec. Donec blandit velit sit amet ligula vulputate, at interdum dolor malesuada. Vestibulum in ligula ut massa condimentum faucibus ut et sem. Aliquam vestibulum, metus non maximus porttitor, diam ante sollicitudin tortor, vel sollicitudin turpis leo nec magna. Nam eu molestie libero. Nunc posuere, eros sit amet sagittis rutrum, dui erat ultrices est, eget ornare velit urna rhoncus risus. Sed ut libero ac enim ultricies blandit ac vitae quam.";
-        
-        this.displayPrompt('You', message);
+    
+        const firstLetterCapitalized = message.charAt(0).toUpperCase() + message.slice(1);
+        const youMessage = firstLetterCapitalized.trim().endsWith('.') ? firstLetterCapitalized : `${firstLetterCapitalized.trim()}.`;
+    
+        this.displayPrompt('You', youMessage);
     
         await this.delay(500);
         document.dispatchEvent(new CustomEvent('stop'));
@@ -30,6 +34,11 @@ class Response extends HTMLElement {
         await this.delay(delay);
         document.dispatchEvent(new CustomEvent('reStart'));
     };
+    
+    handleStopText = () => {
+        this.stopTyping = true;
+        document.dispatchEvent(new CustomEvent('returnSvg'));
+    }
     
     displayPrompt(user, content) {
         const responseArea = this.shadow.querySelector('.response-area');
@@ -54,23 +63,27 @@ class Response extends HTMLElement {
         }
     }
     
-    typingText(typingTextContainer, content) {
+    typingText = async (typingTextContainer, content) => {
+        this.stopTyping = false;
+
         const words = content.split(' ');
-    
+
         const wordTyping = async (word) => {
+            if (this.stopTyping) return;
+
             const typingText = typingTextContainer.querySelector('.typing-text-gpt');
             typingText.innerHTML += word + ' ';
             const responseArea = this.shadow.querySelector('.response-area');
             responseArea.scrollTop = responseArea.scrollHeight;
             await this.delay(30);
         };
-    
+
         const wordTypings = async () => {
             for (let i = 0; i < words.length; i++) {
                 await wordTyping(words[i], i);
             }
         };
-    
+
         wordTypings();
     }
     
