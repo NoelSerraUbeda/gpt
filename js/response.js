@@ -73,6 +73,7 @@ class Response extends HTMLElement {
 
             await this.delay(30);
         }
+        document.dispatchEvent(new CustomEvent('endText'));
     }
 
     delay = ms => new Promise(resolve => setTimeout(resolve, ms));
@@ -127,7 +128,7 @@ class Response extends HTMLElement {
             }
 
             .message-container{
-                margin-top:5.6vh;
+                margin-top:2.6vh;
             }
 
             .avatar-container {

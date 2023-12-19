@@ -7,7 +7,7 @@ class Examples extends HTMLElement {
         document.addEventListener('newChat', this.handleNewChat.bind(this));
     }
 
-    handlestartChat = event => {
+    handlestartChat = () => {
         this.shadow.innerHTML = '';
     }
 
@@ -28,7 +28,7 @@ class Examples extends HTMLElement {
         .examples{
             display: flex;
             flex-wrap: wrap;
-            gap: 0.4rem;
+            gap: 0.6rem;
             justify-content: center;
             margin:-10px;
         }

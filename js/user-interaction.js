@@ -2,17 +2,27 @@ class Message extends HTMLElement {
 
     constructor() {
         super();
+        this.addEventListeners();
         this.shadow = this.attachShadow({ mode: 'open' });
+    }
 
-        document.addEventListener('newChat', () => this.render());
+    addEventListeners() {
+        document.addEventListener('endText', event => this.handleEndText(event));
+        document.addEventListener('newChat', () => this.handleNewChat());
+    }
+
+    handleNewChat() {
+        this.sendButton.parentElement.removeAttribute('hidden');
+        this.stopButton.parentElement.setAttribute('hidden', '');
     }
 
     static get observedAttributes() {
         return ['state']
     }
 
-    connectedCallback() {
-        this.render();
+    handleEndText() {
+        this.sendButton.parentElement.removeAttribute('hidden');
+        this.stopButton.parentElement.setAttribute('hidden', '');
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
@@ -23,8 +33,12 @@ class Message extends HTMLElement {
             } else {
                 this.sendButton.parentElement.removeAttribute('hidden');
                 this.stopButton.parentElement.setAttribute('hidden', '');
-            }  
+            }
         }
+    }
+
+    connectedCallback() {
+        this.render();
     }
 
     render() {
@@ -103,30 +117,26 @@ class Message extends HTMLElement {
 
         .message-input .stop-button button{
             align-items: center;
-            background-color: hsl(235, 7%, 31%);
-            border: 1px hsl(235, 7%, 31%) solid;
+            background-color: hsl(235, 11%, 23%);
+            border: none;
             border-radius: 0.5rem;
             display: flex;
             padding: 0.3rem 0.2rem;
             cursor:pointer;   
-        }
-
-        .message-input .stop-button button:hover{
-            background-color: hsl(235, 11%, 23%);
+            animation: pulse 0.3s infinite alternate;
         }
 
         .message-input .stop-button svg{
-            color:hsl(0, 0%, 0%, 0.3);
-            width: 1.3rem;
+            width: 1.8rem;
         }
 
-        .message-input .stop-button.active button{
-            background-color: white;
-            cursor: pointer;
-        }
-
-        .message-input .stop-button.active svg{
-            color:hsl(0, 0%, 0%);
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            100% {
+                transform: scale(1.1);
+            }
         }
 
         .stop-button .tooltiptext{
