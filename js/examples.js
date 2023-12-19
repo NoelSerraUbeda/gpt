@@ -28,8 +28,9 @@ class Examples extends HTMLElement {
         .examples{
             display: flex;
             flex-wrap: wrap;
-            gap: 0.5rem;
+            gap: 0.4rem;
             justify-content: center;
+            margin:-10px;
         }
 
         .example{

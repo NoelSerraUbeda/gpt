@@ -101,6 +101,7 @@ class Response extends HTMLElement {
                 width: 100%;
                 bottom: 0;
                 right: 0;
+
             }
 
             .response-area {
@@ -126,7 +127,7 @@ class Response extends HTMLElement {
             }
 
             .message-container{
-                margin-top:2rem;
+                margin-top:5.6vh;
             }
 
             .avatar-container {
@@ -165,6 +166,7 @@ class Response extends HTMLElement {
                     width:89%;
                     left:2rem;
                     height:45%;
+                    margin-top:1rem;
                 }
             }
         </style>
