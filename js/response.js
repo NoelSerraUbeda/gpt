@@ -2,99 +2,87 @@ class Response extends HTMLElement {
     constructor() {
         super();
         this.shadow = this.attachShadow({ mode: 'open' });
-    
-        document.addEventListener('newPrompt', event => this.handleNewPrompt(event));
-        document.addEventListener('newChat', event => this.handleNewChat(event));
-        document.addEventListener('stopText', event => this.handleStopText(event));
+        this.addEventListeners();
     }
 
-    handleNewChat = () => {
+    addEventListeners() {
+        document.addEventListener('newPrompt', event => this.handleNewPrompt(event));
+        document.addEventListener('newChat', () => this.handleNewChat());
+        document.addEventListener('stop', () => this.handleStop());
+    }
+
+    handleNewChat() {
         this.shadow.innerHTML = '';
         this.render();
     }
-    
-    handleNewPrompt = async event => {
+
+    handleStop() {
+        this.stopTyping = true;
+    }
+
+    async handleNewPrompt(event) {
         const { message } = event.detail;
-        const gptMessage = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris fermentum dui eu felis gravida, eu aliquet nibh accumsan. Maecenas tristique metus libero, a condimentum lorem gravida ut. Aenean commodo vitae ipsum condimentum faucibus. Morbi massa enim, bibendum vitae nisi quis, molestie aliquet purus. Vivamus maximus risus ac arcu scelerisque hendrerit. Integer ultricies metus libero, a commodo purus convallis nec. Donec blandit velit sit amet ligula vulputate, at interdum dolor malesuada. Vestibulum in ligula ut massa condimentum faucibus ut et sem. Aliquam vestibulum, metus non maximus porttitor, diam ante sollicitudin tortor, vel sollicitudin turpis leo nec magna. Nam eu molestie libero. Nunc posuere, eros sit amet sagittis rutrum, dui erat ultrices est, eget ornare velit urna rhoncus risus. Sed ut libero ac enim ultricies blandit ac vitae quam.";
-    
-        const firstLetterCapitalized = message.charAt(0).toUpperCase() + message.slice(1);
-        const youMessage = firstLetterCapitalized.trim().endsWith('.') ? firstLetterCapitalized : `${firstLetterCapitalized.trim()}.`;
-    
-        this.displayPrompt('You', youMessage);
-    
+        let gptMessage = "Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creación de las hojas";  
+
+        this.displayPrompt('You', message);
+        
         await this.delay(500);
-        document.dispatchEvent(new CustomEvent('stop'));
-    
         this.displayPrompt('GPT', gptMessage);
-    
+
         const responseArea = this.shadow.querySelector('.response-area');
         responseArea.scrollTop = responseArea.scrollHeight;
-    
+
         const delay = gptMessage.split(' ').length * 32;
         await this.delay(delay);
-        document.dispatchEvent(new CustomEvent('reStart'));
-    };
-    
-    handleStopText = () => {
-        this.stopTyping = true;
-        document.dispatchEvent(new CustomEvent('returnSvg'));
     }
-    
+
     displayPrompt(user, content) {
         const responseArea = this.shadow.querySelector('.response-area');
         const container = this.createContainer('div', 'message-container');
-    
         const avatarContainer = this.createContainer('div', 'avatar-container');
         avatarContainer.innerHTML = `<h1>${user}</h1><img src="${user === 'You' ? '../images/user-avatar.png' : '../images/gpt-avatar.png'}" class="avatar">`;
-    
+
         const paragraphContainer = this.createContainer('div', 'paragraph-container');
         paragraphContainer.innerHTML = `<div>${avatarContainer.outerHTML}</div><p>${content}</p>`;
-    
+
         const typingTextContainer = this.createContainer('div', 'paragraph-container');
         typingTextContainer.innerHTML = `<div>${avatarContainer.outerHTML}</div><p class="typing-text-gpt"></p>`;
-    
+
         container.appendChild(user === 'You' ? paragraphContainer : typingTextContainer);
         responseArea.appendChild(container);
-    
+
         if (user === 'GPT') {
             this.typingText(typingTextContainer, content);
         } else {
             responseArea.scrollTop = responseArea.scrollHeight;
         }
     }
-    
-    typingText = async (typingTextContainer, content) => {
-        this.stopTyping = false;
 
+    async typingText(typingTextContainer, content) {
+        this.stopTyping = false;
         const words = content.split(' ');
 
-        const wordTyping = async (word) => {
+        for (const word of words) {
             if (this.stopTyping) return;
 
             const typingText = typingTextContainer.querySelector('.typing-text-gpt');
             typingText.innerHTML += word + ' ';
+
             const responseArea = this.shadow.querySelector('.response-area');
             responseArea.scrollTop = responseArea.scrollHeight;
+
             await this.delay(30);
-        };
-
-        const wordTypings = async () => {
-            for (let i = 0; i < words.length; i++) {
-                await wordTyping(words[i], i);
-            }
-        };
-
-        wordTypings();
+        }
     }
-    
+
     delay = ms => new Promise(resolve => setTimeout(resolve, ms));
-    
+
     createContainer = (elementType, className) => {
         const container = document.createElement(elementType);
         container.classList.add(className);
         return container;
     }
-    
+
     connectedCallback() {
         this.render();
     }

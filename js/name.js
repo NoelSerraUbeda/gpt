@@ -44,7 +44,6 @@ class Name extends HTMLElement {
         /*html*/`
         <style>
             .name {
-<<<<<<< HEAD
                 background-color: hsl(235, 11%, 23%, 0.5);
                 font-family: "SoehneBuch", sans-serif;
                 justify-content: start;
@@ -58,21 +57,6 @@ class Name extends HTMLElement {
                 left: 3rem;
                 z-index:2;
                 top: 0;
-=======
-                font-family: "SoehneBuch", sans-serif;
-                position: absolute;
-                top: 0;
-                left: 3rem;
-                display: flex;
-                align-items: start;
-                justify-content: start;
-                padding-left: 0.25rem;
-                padding-right: 0.5rem;
-                padding-top: 0.2rem;
-                width: 100%;
-                background-color: hsl(235, 11%, 23%, 0.9);
-                z-index:2;
->>>>>>> 7cb920600f2bf202f01883112a6d3797053c34a4
             }
 
             h1 {
@@ -136,23 +120,19 @@ class Name extends HTMLElement {
                 width:100%;
             }
 
-            .head{
+            .head {
                 justify-content: space-between; 
                 display:flex;
-            }
-
-            .head svg {
-                margin-right:1rem;
-                margin-top:1.5rem;
-                width:40px;
                 cursor:pointer;
             }
 
             .head svg {
-                width:60px;
+                width:40px;
                 position:absolute;
-                top:1rem;
-                right:1rem;
+                top:0.8rem;
+                right:1rem;                
+                margin-right:1rem;
+                margin-top:1.5rem;
             }
 
             .option{

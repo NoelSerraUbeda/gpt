@@ -1,53 +1,30 @@
 class Message extends HTMLElement {
+
     constructor() {
         super();
         this.shadow = this.attachShadow({ mode: 'open' });
-        this.isStopEventRunning = false;
-        
+
         document.addEventListener('newChat', () => this.render());
-        document.addEventListener('stop', () => this.handleStop());
-        document.addEventListener('reStart', () => this.handleSvgChange());
-        document.addEventListener('returnSvg', () => this.handleSvgChange());
     }
 
-    // Evento de detener, deshabilitar y actualizar SVG
-    handleStop = () => {
-        this.isStopEventRunning = true;
-
-        // Deshabilitar textarea
-        const textarea = this.shadow.querySelector('.form-element textarea');
-        textarea.disabled = true;
-
-        // Habilitar durante stop
-        const sendButton = this.shadow.querySelector('.send-button button');
-        sendButton.disabled = false;
-
-        // Asignar controlador
-        sendButton.onclick = () => {
-            if (this.isStopEventRunning) {
-                document.dispatchEvent(new CustomEvent('stopText'));
-            }
-        };
-        // Cambiar SVG a stop.
-        this.updateSvg('<svg fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>stop-circle-outline</title><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4M9,9V15H15V9" /></svg>');
-    };
-
-    // Devolver SVG original
-    handleSvgChange = () => {
-        // recuperar textarea
-        const textarea = this.shadow.querySelector('.form-element textarea');
-        textarea.disabled = false;
-        this.updateSvg('<svg viewBox="0 0 24 24" fill="none" class="text-white dark:text-black"><path d="M7 11L12 6L17 11M12 18V7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>');
+    static get observedAttributes() {
+        return ['state']
     }
-
-    // Actualiza SVG
-    updateSvg = (svgString) => {
-        const buttonSvg = this.shadow.querySelector('.send-button button svg');
-        buttonSvg.innerHTML = svgString;
-    };
 
     connectedCallback() {
         this.render();
+    }
+
+    attributeChangedCallback(name, oldValue, newValue) {
+        if (name === 'state') {
+            if (newValue === "true") {
+                this.sendButton.parentElement.setAttribute('hidden', '');
+                this.stopButton.parentElement.removeAttribute('hidden');
+            } else {
+                this.sendButton.parentElement.removeAttribute('hidden');
+                this.stopButton.parentElement.setAttribute('hidden', '');
+            }  
+        }
     }
 
     render() {
@@ -64,6 +41,7 @@ class Message extends HTMLElement {
             bottom: 0;
             margin-left:-27.5rem;
             left:none;
+            z-index:500;
         }
 
         .message-input .attach-button button{
@@ -121,6 +99,67 @@ class Message extends HTMLElement {
 
         .message-input form .form-element textarea:focus{
             outline: none;
+        }
+
+        .message-input .stop-button button{
+            align-items: center;
+            background-color: hsl(235, 7%, 31%);
+            border: 1px hsl(235, 7%, 31%) solid;
+            border-radius: 0.5rem;
+            display: flex;
+            padding: 0.3rem 0.2rem;
+            cursor:pointer;   
+        }
+
+        .message-input .stop-button button:hover{
+            background-color: hsl(235, 11%, 23%);
+        }
+
+        .message-input .stop-button svg{
+            color:hsl(0, 0%, 0%, 0.3);
+            width: 1.3rem;
+        }
+
+        .message-input .stop-button.active button{
+            background-color: white;
+            cursor: pointer;
+        }
+
+        .message-input .stop-button.active svg{
+            color:hsl(0, 0%, 0%);
+        }
+
+        .stop-button .tooltiptext{
+            background-color: black;
+            border-radius: 0.5rem;
+            color: #fff;
+            font-family: 'SoehneBuch', sans-serif;
+            font-size: 0.8rem;
+            margin-top: -5rem;
+            margin-left: -3rem;
+            opacity: 0;
+            padding: 0.5rem 0;
+            pointer-events: none; 
+            position: absolute;
+            text-align: center;
+            transition: opacity 0.3s;
+            width: 120px;
+            z-index: 1001;
+        }
+
+        .stop-button .tooltiptext::after {
+            border-width: 5px;
+            border-style: solid;
+            border-color: rgb(0, 0, 0) transparent transparent transparent;
+            content: "";
+            left: 45%;
+            position: absolute;
+            top: 100%;   
+        }
+
+        .stop-button:hover .tooltiptext{
+            opacity: 1;
+            visibility: visible;
         }
 
         .message-input .send-button button{
@@ -242,19 +281,30 @@ class Message extends HTMLElement {
                 <div class="form-element">
                     <textarea placeholder="Message ChatGPT..." autofocus></textarea>
                 </div>
-                <div class="send-button">
-                    <button disabled>
+                <div class="send-button" visible>
+                    <button>
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="text-white dark:text-black">
                             <path d="M7 11L12 6L17 11M12 18V7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
                         </svg>            
                         <span class="tooltiptext">Enviar mensaje</span>                  
                     </button>
                 </div>
+                <div class="stop-button" hidden>
+                    <button> 
+                    <svg fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>stop-circle-outline</title><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4M9,9V15H15V9" /></svg>            
+                        <span class="tooltiptext">Detener mensaje</span>                  
+                    </button>
+                </div>
             </form>
-        </section>
+        </section>;
       `
+
+        this.sendButton = this.shadow.querySelector('.send-button button');
+        this.stopButton = this.shadow.querySelector('.stop-button button');
+
         const textarea = this.shadow.querySelector('.form-element textarea');
         const sendButton = this.shadow.querySelector('.send-button button');
+        const stopButton = this.shadow.querySelector('.stop-button button');
         const buttonParent = sendButton.parentElement;
 
         const activateSendButton = () => {
@@ -263,29 +313,33 @@ class Message extends HTMLElement {
             sendButton.disabled = !validate;
         };
 
+        const handleSendAction = (event) => {
+            event.preventDefault();
+            const areaValue = textarea.value.trim();
+            if (areaValue !== '') {
+                this.render();
+                document.dispatchEvent(new CustomEvent('startChat'));
+                document.dispatchEvent(new CustomEvent('newPrompt', { detail: { message: areaValue } }));
+                this.setAttribute('state', "true")
+            }
+        };
+
+        const handleStopAction = (event) => {
+            event.preventDefault();
+            document.dispatchEvent(new CustomEvent('stop'));
+            this.setAttribute('state', "false")
+        };
+
         textarea.addEventListener('input', activateSendButton);
 
         textarea.addEventListener('keydown', (event) => {
             if (event.key === 'Enter' && !event.shiftKey) {
-                event.preventDefault();
-                const trimmedValue = textarea.value.trim();
-                if (trimmedValue !== '') {
-                    sendButton.click();
-                }
+                handleSendAction(event);
             }
         });
 
-        sendButton.addEventListener('click', (event) => {
-            event.preventDefault();
-            const trimmedValue = textarea.value.trim();
-            if (trimmedValue !== '') {
-                this.render();
-                document.dispatchEvent(new CustomEvent('startChat'));
-
-                const messageValue = trimmedValue;
-                document.dispatchEvent(new CustomEvent('newPrompt', { detail: { message: messageValue } }));
-            }
-        });
+        sendButton.addEventListener('click', handleSendAction);
+        stopButton.addEventListener('click', handleStopAction);
     }
 }
 customElements.define('input-component', Message);
