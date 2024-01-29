@@ -40,7 +40,7 @@ class Response extends HTMLElement {
         const responseArea = this.shadow.querySelector('.response-area');
         const container = this.createContainer('div', 'message-container');
         const avatarContainer = this.createContainer('div', 'avatar-container');
-        avatarContainer.innerHTML = `<h1>${user}</h1><img src="${user === 'You' ? '../images/user-avatar.png' : '../images/gpt-avatar.png'}" class="avatar">`;
+        avatarContainer.innerHTML = `<h1>${user}</h1><img src="${user === 'You' ? './images/user-avatar.png' : './images/gpt-avatar.png'}" class="avatar">`;
 
         const paragraphContainer = this.createContainer('div', 'paragraph-container');
         paragraphContainer.innerHTML = `<div>${avatarContainer.outerHTML}</div><p>${content}</p>`;
